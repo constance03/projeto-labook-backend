@@ -7,7 +7,8 @@ export interface TGetPostsInputDTO {
 export type TGetPostsOutputDTO = TPostModel[]
 
 export interface TCreatePostInputDTO {
-    token: string | undefined
+    token: string | undefined,
+    content: unknown
 }
 
 export interface TEditPostInputDTO {
@@ -17,6 +18,6 @@ export interface TEditPostInputDTO {
 }
 
 export interface TDeletePostInputDTO {
-    idToEdit: string,
+    idToDelete: string,
     token: string | undefined
 }
