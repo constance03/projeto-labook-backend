@@ -36,6 +36,17 @@ export interface TPostWithCreatorDB extends TPostDB {
     creator_name: string
 }
 
+export interface TLikeDislikeDB {
+    user_id: string,
+    post_id: string,
+    like: number
+}
+
+export enum POST_LIKE {
+    ALREADY_LIKED = "ALREADY LIKED",
+    ALREADY_DISLIKED = "ALREADY DISLIKED"
+}
+
 export interface TUserDB { 
     id: string,
     name: string,

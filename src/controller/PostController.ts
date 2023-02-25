@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { PostBusiness } from '../business/PostBusiness'
-import { TCreatePostInputDTO, TDeletePostInputDTO, TEditPostInputDTO, TGetPostsInputDTO } from '../dtos/postDTO'
+import { TCreatePostInputDTO, TDeletePostInputDTO, TEditPostInputDTO, TGetPostsInputDTO, TLikeOrDislikeInputDTO } from '../dtos/postDTO'
 import { BaseError } from '../errors/BaseError'
 
 export class PostController { 
@@ -33,7 +33,7 @@ export class PostController {
         try {
             const input: TCreatePostInputDTO = {
                 token: req.headers.authorization,
-                content: req.body.name
+                content: req.body.content
             }
 
             await this.postBusiness.createPost(input)
@@ -54,7 +54,7 @@ export class PostController {
         try {
             const input: TEditPostInputDTO = {
                 token: req.headers.authorization,
-                content: req.body.name,
+                content: req.body.content,
                 idToEdit: req.params.id
             }
 
@@ -80,6 +80,28 @@ export class PostController {
             }
 
             await this.postBusiness.deletePost(input)
+    
+            res.status(200).end()
+        } catch (error) {
+            console.log(error);
+            
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("Erro inesperado")
+            }
+        }
+    }
+
+    public likeOrDislikePost = async (req: Request, res: Response) => {
+        try {
+            const input: TLikeOrDislikeInputDTO = {
+                token: req.headers.authorization,
+                like: req.body.like,
+                idToLikeOrDislike: req.params.id
+            }
+
+            await this.postBusiness.likeOrDislikePost(input)
     
             res.status(200).end()
         } catch (error) {

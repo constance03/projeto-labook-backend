@@ -21,3 +21,9 @@ export interface TDeletePostInputDTO {
     idToDelete: string,
     token: string | undefined
 }
+
+export interface TLikeOrDislikeInputDTO {
+    idToLikeOrDislike: string,
+    token: string | undefined,
+    like: unknown
+}
